@@ -2,9 +2,9 @@
 
 namespace Skies\LeBang;
 
+use Skies\LeBang\Commands\LeBangCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Skies\LeBang\Commands\LeBangCommand;
 
 class LeBangServiceProvider extends PackageServiceProvider
 {
