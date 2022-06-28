@@ -55,8 +55,8 @@ class Suning implements ECommerceInterface
 
         return new StandardFormat(
             $product['data']['title'],
-            $product['data']['images'],
-            $descImages
+            StandardFormat::imageUrlFormat($product['data']['images']),
+            StandardFormat::imageUrlFormat($descImages)
         );
     }
 }

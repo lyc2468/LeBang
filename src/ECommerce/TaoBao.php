@@ -50,10 +50,8 @@ class TaoBao implements ECommerceInterface
     {
         return new StandardFormat(
             $product['data']['item']['title'],
-            array_map(function ($img) {
-                return 'https:' . $img;
-            }, $product['data']['item']['images']),
-            $product['data']['item']['descImgs']
+            StandardFormat::imageUrlFormat($product['data']['item']['images']),
+            StandardFormat::imageUrlFormat($product['data']['item']['descImgs'])
         );
     }
 }

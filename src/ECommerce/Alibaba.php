@@ -47,13 +47,14 @@ class Alibaba implements ECommerceInterface
         $imgNode = $xpath->query("//img");
         $descImages = [];
         foreach ($imgNode as $img) {
-            $descImages[] = 'https:' . $img->attributes->getNamedItem('src')->nodeValue;
+            $imgUrl = $img->attributes->getNamedItem('src')->nodeValue;
+            $descImages[] = $imgUrl;
         }
 
         return new StandardFormat(
             $product['data']['title'],
-            $product['data']['images'],
-            $descImages,
+            StandardFormat::imageUrlFormat($product['data']['images']),
+            StandardFormat::imageUrlFormat($descImages),
         );
     }
 }
