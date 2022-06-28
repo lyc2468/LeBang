@@ -6,9 +6,12 @@ class LeBang
 {
     protected ApiClient $apiClient;
 
-    public function __construct(string $apiKey, string $baseUrl = "")
+    public function __construct()
     {
-        $this->apiClient = new ApiClient($apiKey, $baseUrl);
+        $this->apiClient = new ApiClient(
+            config('lebang.apikey'),
+            config('lebang.base_url', '')
+        );
     }
 
     public function detail(string $url, array $params = [], bool $isFormat = false): array|StandardFormat|null
