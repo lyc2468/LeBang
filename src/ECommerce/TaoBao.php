@@ -48,10 +48,21 @@ class TaoBao implements ECommerceInterface
 
     protected static function toStandardFormat(array $product): StandardFormat
     {
+        $videos = [];
+
+        if (isset($product['data']['item']['videos'])
+            && count($product['data']['item']['videos']) > 0
+        ) {
+            foreach ($product['data']['item']['videos'] as $videoInfo) {
+                $videos[] = $videoInfo['url'];
+            }
+        }
+
         return new StandardFormat(
             $product['data']['item']['title'],
-            StandardFormat::imageUrlFormat($product['data']['item']['images']),
-            StandardFormat::imageUrlFormat($product['data']['item']['descImgs'])
+            StandardFormat::urlFormat($product['data']['item']['images']),
+            StandardFormat::urlFormat($product['data']['item']['descImgs']),
+            StandardFormat::urlFormat($videos)
         );
     }
 }

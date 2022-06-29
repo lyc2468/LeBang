@@ -4,21 +4,35 @@ namespace Skies\LeBang;
 
 class StandardFormat
 {
-    public function __construct(public string $name, public array $images, public string|array $desc)
+    public function __construct(public string $name, public array $images, public string|array $desc, public array $videos = [])
     {
     }
 
-    public static function imageUrlFormat(array $images): array
+    public static function urlFormat(array|string $url): array|string
     {
-        $imagesFormat = [];
-        foreach ($images as $imgUrl) {
-            if (! str_starts_with($imgUrl, 'http')) {
-                $imgUrl = 'https:' . $imgUrl;
-            }
+        $formatUrl = [];
 
-            $imagesFormat[] = $imgUrl;
+        if (is_string($url)) {
+            return self::format($url);
         }
 
-        return $imagesFormat;
+        foreach ($url as $i) {
+            $formatUrl[] = self::urlFormat($i);
+        }
+
+        return $formatUrl;
+    }
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    protected static function format(string $url): string
+    {
+        if (! str_starts_with($url, 'http')) {
+            $url = 'https:' . $url;
+        }
+
+        return $url;
     }
 }

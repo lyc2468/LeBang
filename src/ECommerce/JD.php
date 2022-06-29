@@ -42,8 +42,8 @@ class JD implements ECommerceInterface
     {
         return new StandardFormat(
             $product['data']['item']['name'],
-            StandardFormat::imageUrlFormat($product['data']['item']['images']),
-            StandardFormat::imageUrlFormat($product['data']['item']['descImgs'])
+            StandardFormat::urlFormat($product['data']['item']['images']),
+            StandardFormat::urlFormat($product['data']['item']['descImgs'])
         );
     }
 }

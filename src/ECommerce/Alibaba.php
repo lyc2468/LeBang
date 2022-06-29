@@ -12,6 +12,7 @@ class Alibaba implements ECommerceInterface
     {
         $params = array_merge($params, [
             'itemid' => static::getItemIdFromUrl($url),
+            'video' => true
         ]);
 
         $product = json_decode($client->get("/alibaba/pro/detail", $params), true);
@@ -41,6 +42,8 @@ class Alibaba implements ECommerceInterface
 
     protected static function toStandardFormat(array $product): StandardFormat
     {
+        $video = $product['data']['videoUrl'] ?? "";
+
         $doc = new \DOMDocument();
         $doc->loadHTML($product['data']['desc']);
         $xpath = new \DOMXPath($doc);
@@ -51,10 +54,12 @@ class Alibaba implements ECommerceInterface
             $descImages[] = $imgUrl;
         }
 
+
         return new StandardFormat(
             $product['data']['title'],
-            StandardFormat::imageUrlFormat($product['data']['images']),
-            StandardFormat::imageUrlFormat($descImages),
+            StandardFormat::urlFormat($product['data']['images']),
+            StandardFormat::urlFormat($descImages),
+            ! empty($video) ? StandardFormat::urlFormat([$video]) : [],
         );
     }
 }
