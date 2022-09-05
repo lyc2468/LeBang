@@ -35,7 +35,7 @@ class Amazon implements ECommerceInterface
     {
         return new StandardFormat(
             $product['data']['title'],
-            array_column($product['data']['imgs'], 'hiRes'),
+            $product['data']['imgs'],
             implode("\n", $product['data']['features'])
         );
     }
